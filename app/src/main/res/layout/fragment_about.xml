@@ -1,0 +1,99 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.ngeartstudio.kamus.kamusku.AboutFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/card2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/bg">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/bg">
+
+
+                <TextView
+                    android:id="@+id/namaaps1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="80dp"
+                    android:text="Aplikasi"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/versiapp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/namaaps"
+                    android:layout_marginTop="2dp"
+                    android:text="Versi 1.0.0"
+                    android:textAlignment="center"
+                    android:textSize="15sp"
+                    android:textStyle="italic" />
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="120dp"
+                    android:layout_height="170dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_centerInParent="true"
+                    android:layout_below="@+id/versiapp"
+                    app:srcCompat="@drawable/icon" />
+
+
+                <TextView
+                    android:id="@+id/namaaps"
+                    android:layout_below="@+id/namaaps1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="Kamus Istilah Komputer dan Jaringan"
+                    android:textAlignment="center"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/imageView"
+                    android:layout_marginTop="10dp"
+                    android:text="© 2018. Universitas Negeri Yogyakarta."
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                    android:textSize="15sp"
+                    tools:layout_editor_absoluteX="82dp"
+                    tools:layout_editor_absoluteY="267dp" />
+
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView"
+                    android:layout_marginTop="5dp"
+                    android:text="Seluruh Hak Cipta."
+                    android:textAlignment="center"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                    android:textSize="15sp"
+                    tools:layout_editor_absoluteX="82dp"
+                    tools:layout_editor_absoluteY="267dp" />
+            </RelativeLayout>
+
+
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+</FrameLayout>
