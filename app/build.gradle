@@ -7,7 +7,7 @@ android {
         config {
             keyAlias 'fikneader'
             keyPassword 'stembayo13'
-            storeFile file('key/kamusku.jks')
+            storeFile file('/key/kamusku.jks')
             storePassword 'stembayo13'
         }
     }
