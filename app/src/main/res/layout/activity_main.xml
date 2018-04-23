@@ -1,40 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:design="http://schemas.android.com/tools">
+    android:orientation="vertical"
+    tools:context="com.ngeartstudio.kamus.kamusku.Main2Activity">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbarMain"
+    <FrameLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/bg_screen5">
+
+    </FrameLayout>
+
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/bg_screen3"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="@style/ThemeOverlay.AppCompat.Light"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-        app:title="KamusKomJar"
-        app:titleTextColor="@color/common_google_signin_btn_text_dark_default" />
+        android:layout_gravity="start"
+        android:background="#FF3F52BE"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:menu="@menu/navigation" />
 
-    <android.support.v7.widget.SearchView
-        android:id="@+id/carikata"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbarMain"
-        android:layout_centerHorizontal="true"
-        android:textAlignment="gravity"
-        app:iconifiedByDefault="false"
-        app:queryHint="Cari Istilah" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/hasilcari"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/carikata"
-        android:divider="@android:color/black"
-        android:dividerHeight="8dp">
-
-    </android.support.v7.widget.RecyclerView>
-
-</RelativeLayout>
+</LinearLayout>

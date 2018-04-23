@@ -3,13 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <color name="colorFAB1">#2196F3</color>
+    <color name="colorFAB2">#E040FB</color>
 
     <!-- Screens background color-->
     <color name="bg_screen1">#26ae90</color>
-    <color name="bg_screen2">#20d2bb</color>
+    <color name="bg_screen2">#129080</color>
     <color name="bg_screen3">#3395ff</color>
     <color name="bg_screen4">#c873f4</color>
-    <color name="bg_screen5">#3F51B5</color>
+    <color name="bg_screen5">#404b87</color>
     <color name="bg_screen6">#c873f4</color>
 
     <!-- dots inactive colors -->
@@ -18,7 +20,7 @@
     <color name="dot_dark_screen3">#2278d4</color>
     <color name="dot_dark_screen4">#2278d4</color>
     <color name="dot_dark_screen5">#303F9F</color>
-    <color name="dot_dark_screen6">#303F9F</color>
+    <color name="dot_dark_screen6">#f1f1f5</color>
 
     <!-- dots active colors -->
     <color name="dot_light_screen1">#8cf9eb</color>

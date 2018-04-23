@@ -1,105 +1,66 @@
 package com.ngeartstudio.kamus.kamusku;
 
-import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
+import android.os.Handler;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.app.SearchManager;
-import android.support.v7.widget.SearchView;
-import android.widget.SearchView.OnQueryTextListener;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.ArrayList;
-import java.util.List;
+import android.widget.Toolbar;
+import com.microsoft.appcenter.AppCenter;
+import com.microsoft.appcenter.analytics.Analytics;
+import com.microsoft.appcenter.crashes.Crashes;
 
 public class MainActivity extends AppCompatActivity {
-    private RecyclerView rvWord;
-    private WordAdapter wordAdapter;
-    private List<DictionaryModel> dictionaryModelList;
-    private DatabaseHelper mDBHelper;
-    private Toolbar toolbar;
 
-    private static final String SELECTED_ITEM = "arg_selected_item";
-    private BottomNavigationView mBottomNav;
-    private int mSelectedItem;
+    public Toolbar toolbar;
+    public BottomNavigationView navigationView;
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            FragmentTransaction transaction = fragmentManager.beginTransaction();
+            switch (item.getItemId()) {
+                case R.id.navigation_home:
+                    transaction.replace(R.id.content, new HomeFragment()).commit();
+                    return true;
+                case R.id.navigation_favorite:
+                    transaction.replace(R.id.content, new FavoriteFragment()).commit();
+                    return true;
+                case R.id.navigation_about:
+                    transaction.replace(R.id.content, new AboutFragment()).commit();
+                    return true;
+            }
+            return false;
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        AppCenter.start(getApplication(), "a25f2e36-3457-490b-b934-11710ed037a3",
+                Analytics.class, Crashes.class);
 
-        rvWord = (RecyclerView) findViewById(R.id.hasilcari);
-        rvWord.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        navigationView = findViewById(R.id.navigation);
+        navigationView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        mDBHelper = new DatabaseHelper(this);
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.replace(R.id.content, new HomeFragment()).commit();
 
-        File database = getApplicationContext().getDatabasePath(DatabaseHelper.DATABASE_NAME);
-/*        if (database.exists() == false){
-            mDBHelper.getReadableDatabase();
-                if (copyDatabase(this)){
-                    Toast.makeText(getApplicationContext(),"Copy Success",Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getApplicationContext(),"Copy Failed",Toast.LENGTH_LONG).show();
-                    return;
-                }
-        }*/
-        mDBHelper.getReadableDatabase();
-        copyDatabase(this);
-        //Toast.makeText(getApplicationContext(),"Copy Success",Toast.LENGTH_LONG).show();
-        dictionaryModelList = mDBHelper.getListWord("");
-        wordAdapter = new WordAdapter();
-        wordAdapter.setData(dictionaryModelList);
-        rvWord.setAdapter(wordAdapter);
-
-        SearchView searchView = (SearchView) findViewById(R.id.carikata);
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                searchWord(newText);
-                return false;
-            }
-        });
-
-        toolbar = (Toolbar) findViewById(R.id.toolbarMain);
-        setupToolbar();
-    }
-
-    protected void setupToolbar() {
-        if (toolbar != null) {
-            setSupportActionBar(toolbar);
-            getSupportActionBar().setDisplayShowHomeEnabled(true);
-        }
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-
-        MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.item_navigasi, menu);
-        return true;
     }
 
     @Override
@@ -110,52 +71,28 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Log.w("ANDROID MENU TUTORIAL:", "onOptionsItemSelected(MenuItem item)");
-
         // Handle item selection
         switch (item.getItemId()) {
             case R.id.menu1:
                 Intent intent = new Intent(MainActivity.this, IntroActivity.class);
                 startActivity(intent);
-                //Toast.makeText(getApplicationContext(), "Menu 2", Toast.LENGTH_LONG).show();
                 return true;
-//            case R.id.menu2:
-//                Intent intentAbout = new Intent(MainActivity.this, AboutActivity.class);
-//                startActivity(intentAbout);
-////                Toast.makeText(getApplicationContext(), "About", Toast.LENGTH_LONG).show();
-//                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
 
     }
-
-    private void searchWord(String wordSearch){
-        dictionaryModelList.clear();
-        dictionaryModelList = mDBHelper.getListWord(wordSearch);
-        wordAdapter.setData(dictionaryModelList);
-        rvWord.setAdapter(wordAdapter);
-
-    }
-
-    private boolean copyDatabase(Context context){
-        try {
-            InputStream inputStream = context.getAssets().open(DatabaseHelper.DATABASE_NAME);
-            String outFileName = DatabaseHelper.DBLOCATION + DatabaseHelper.DATABASE_NAME;
-            OutputStream outputStream = new FileOutputStream(outFileName);
-            byte [] buff = new byte[1024];
-            int length = 0;
-            while ((length = inputStream.read(buff)) > 0){
-                outputStream.write(buff,0,length);
-            }
-            outputStream.flush();
-            outputStream.close();
-            Log.w("database","Copy Success");
-            return true;
-        } catch (Exception e){
-            e.printStackTrace();
-            return false;
+    private static long back_pressed;
+    @Override
+    public void onBackPressed() {
+        if (navigationView.getSelectedItemId() == R.id.navigation_home) {
+            //super.onBackPressed();
+            if (back_pressed + 2000 > System.currentTimeMillis()) super.onBackPressed();
+            else Toast.makeText(getBaseContext(), "Tekan kembali sekali lagi untuk keluar!", Toast.LENGTH_SHORT).show();
+            back_pressed = System.currentTimeMillis();
+        } else {
+            navigationView.setSelectedItemId(R.id.navigation_home);
         }
-
     }
+
 }

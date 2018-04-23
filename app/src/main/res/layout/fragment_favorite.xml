@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.ngeartstudio.kamus.kamusku.FavoriteFragment">
 
     <!-- TODO: Update blank fragment layout -->
@@ -9,27 +10,38 @@
         android:id="@+id/inti"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.CardView
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbarfav"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="#FF3D51C0"
+            android:theme="@style/MyCustomTheme"
+            app:title="Kata Kesukaan"
+            app:titleTextColor="@color/background" />
+
+        <android.support.v7.widget.CardView
             android:id="@+id/card2"
-            android:layout_below="@id/card1"
-            android:layout_marginTop="5dp">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/toolbarfav"
+            android:layout_marginTop="3dp">
+
             <RelativeLayout
                 android:id="@+id/inti2"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/hasilfavorite"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_marginTop="5dp"
-                android:divider="@android:color/black"
-                android:dividerHeight="8dp">
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/hasilfavorite"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentStart="true"
+                    android:layout_marginTop="5dp"
+                    android:divider="@android:color/black"
+                    android:dividerHeight="8dp">
 
-            </android.support.v7.widget.RecyclerView>
+                </android.support.v7.widget.RecyclerView>
             </RelativeLayout>
         </android.support.v7.widget.CardView>
     </RelativeLayout>

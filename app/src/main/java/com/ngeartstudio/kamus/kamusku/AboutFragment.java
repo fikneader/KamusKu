@@ -1,13 +1,22 @@
 package com.ngeartstudio.kamus.kamusku;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.widget.Toast;
+
+import java.util.ArrayList;
 
 
 /**
@@ -55,17 +64,21 @@ public class AboutFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        setHasOptionsMenu(true);
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_about, container, false);
+        View view = inflater.inflate(R.layout.fragment_about, container, false);
+
+        Toolbar toolbar = view.findViewById(R.id.toolbarabout);
+        //toolbar.inflateMenu(R.menu.item_navigasi);
+        setOverflowButtonColor(getActivity(), getResources().getColor(R.color.white));
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -106,5 +119,27 @@ public class AboutFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.item_navigasi, menu);  // Use filter.xml from step 1
+    }
+
+    public static void setOverflowButtonColor(final Activity activity, final int color) {
+        final String overflowDescription = activity.getString(R.string.abc_action_menu_overflow_description);
+        final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+        final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final ArrayList<View> outViews = new ArrayList<View>();
+                decorView.findViewsWithText(outViews, overflowDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+                if (outViews.isEmpty()) {
+                    return;
+                }
+                AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
+                overflow.setColorFilter(color);
+            }
+        });
     }
 }

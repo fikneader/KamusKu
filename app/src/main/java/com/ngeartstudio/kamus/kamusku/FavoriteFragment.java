@@ -1,18 +1,28 @@
 package com.ngeartstudio.kamus.kamusku;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -65,10 +75,7 @@ public class FavoriteFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -76,8 +83,16 @@ public class FavoriteFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_favorite, container, false);
-        rvWord = (RecyclerView) view.findViewById(R.id.hasilfavorite);
+        rvWord = view.findViewById(R.id.hasilfavorite);
         rvWord.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        Toolbar toolbar = view.findViewById(R.id.toolbarfav);
+        //toolbar.inflateMenu(R.menu.item_navigasi);
+        int resId = R.anim.layout_animation_fall_down;
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(getContext(), resId);
+        rvWord.setLayoutAnimation(animation);
+        setOverflowButtonColor(getActivity(), getResources().getColor(R.color.white));
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
 
         mDBHelper = new DatabaseHelper(getContext());
 
@@ -135,5 +150,27 @@ public class FavoriteFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.item_navigasi, menu);  // Use filter.xml from step 1
+    }
+
+    public static void setOverflowButtonColor(final Activity activity, final int color) {
+        final String overflowDescription = activity.getString(R.string.abc_action_menu_overflow_description);
+        final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+        final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final ArrayList<View> outViews = new ArrayList<View>();
+                decorView.findViewsWithText(outViews, overflowDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+                if (outViews.isEmpty()) {
+                    return;
+                }
+                AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
+                overflow.setColorFilter(color);
+            }
+        });
     }
 }

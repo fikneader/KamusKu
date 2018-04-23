@@ -10,6 +10,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,18 +27,19 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder>{
     public List<DictionaryModel> data;
     public WordAdapter(){}
     public DatabaseHelper mDatabase;
+    private int lastPosition = -1;
+    Context context;
     public void setData(List<DictionaryModel> data){
         this.data = data;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         mDatabase =  new DatabaseHelper(context);
         LayoutInflater inflater = LayoutInflater.from(context);
         View wordView = inflater.inflate(R.layout.word_item,parent,false);
         ViewHolder viewHolder = new ViewHolder(wordView,context);
-
         return viewHolder;
     }
 
@@ -44,6 +47,12 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder>{
     public void onBindViewHolder(ViewHolder holder, int position) {
         DictionaryModel dictionaryModel = data.get(position);
         holder.wordText.setText(dictionaryModel.getKata());
+        setAnimation(holder.wordText, position);
+        if (dictionaryModel.getFavorite().equals("TRUE")) {
+            holder.buttonFav.setBackgroundResource(R.drawable.notebookred);
+        } else {
+            holder.buttonFav.setBackgroundResource(R.drawable.notebook);
+        }
     }
 
     @Override
@@ -58,25 +67,29 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder>{
         public ViewHolder(View itemView, final Context context) {
             super(itemView);
             this.context = context;
-            wordText = (TextView) itemView.findViewById(R.id.kataText);
-            buttonFav = (Button) itemView.findViewById(R.id.buttonFav);
+            wordText = itemView.findViewById(R.id.kataText);
+            buttonFav = itemView.findViewById(R.id.buttonFav);
             final DatabaseHelper db = new DatabaseHelper(context);
             db.openDatabase();
-            //int i = 0;
-
 
             buttonFav.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     DictionaryModel dictionaryModel = data.get(position);
-                    db.updateFav(dictionaryModel.getId());
-                    dictionaryModel.setFavorite("TRUE");
-                    //Toast.makeText(view.getContext(), "Add to Favorite", Toast.LENGTH_SHORT).show();
-                    Snackbar.make(view,"Add to Favorite",Snackbar.LENGTH_SHORT).show();
 
-                    if (dictionaryModel.getFavorite().equals("TRUE")){
-                        buttonFav.setBackgroundResource(R.drawable.bookmarkred);
+                    if (dictionaryModel.getFavorite().equals("FALSE")){
+                        buttonFav.setBackgroundResource(R.drawable.notebookred);
+                        dictionaryModel.setFavorite("TRUE");
+                        db.updateFav(dictionaryModel.getId());
+                        //Toast.makeText(view.getContext(), "Add to Favorite", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(view,"Tambah ke Kata Favorit",Snackbar.LENGTH_SHORT).show();
+                    } else if (dictionaryModel.getFavorite().equals("TRUE")){
+                        buttonFav.setBackgroundResource(R.drawable.notebook);
+                        dictionaryModel.setFavorite("FALSE");
+                        db.RemoveFav(dictionaryModel.getId());
+                        //Toast.makeText(view.getContext(), "Add to Favorite", Toast.LENGTH_SHORT).show();
+                        Snackbar.make(view,"Hapus dari Kata Favorit",Snackbar.LENGTH_SHORT).show();
                     }
 
                     HomeFragment homeFragment = new HomeFragment();
@@ -103,6 +116,8 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder>{
                         bundle.putString("KATA",dictionaryModel.getKata());
                         bundle.putString("PENGERTIAN",dictionaryModel.getPengertian());
                         bundle.putString("GAMBAR",dictionaryModel.getGambar());
+                        bundle.putString("FAVORITE",dictionaryModel.getFavorite());
+                        bundle.putString("ID",dictionaryModel.getId());
                         definitionFragment.setArguments(bundle);
                     } else {
                         Toast.makeText(view.getContext(), dictionaryModel.getPengertian(), Toast.LENGTH_SHORT).show();
@@ -113,15 +128,17 @@ public class WordAdapter extends RecyclerView.Adapter<WordAdapter.ViewHolder>{
             }
 
             );
-            for (int i=0; i <= getAdapterPosition(); i++) {
-                //int position = 0;
-                DictionaryModel dictionaryModel = data.get(i);
-                if (dictionaryModel.getFavorite().equals("TRUE")){
-                    buttonFav.setBackgroundResource(R.drawable.bookmarkred);
-                } else {
-                    buttonFav.setBackgroundResource(R.drawable.bookmarkdedblack);
-                }
-            }
+        }
+
+    }
+    private void setAnimation(View viewToAnimate, int position)
+    {
+        // If the bound view wasn't previously displayed on screen, it's animated
+        if (position > lastPosition)
+        {
+            Animation animation = AnimationUtils.loadAnimation(context, R.anim.item_animation_from_bottom);
+            viewToAnimate.startAnimation(animation);
+            lastPosition = position;
         }
     }
 }

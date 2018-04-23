@@ -1,39 +1,36 @@
 package com.ngeartstudio.kamus.kamusku;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.DefaultItemAnimator;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
+import android.view.ViewTreeObserver;
+import android.view.animation.AnimationUtils;
+import android.view.animation.LayoutAnimationController;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class HomeFragment extends Fragment {
 
     private RecyclerView rvWord;
@@ -58,14 +55,6 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
     // TODO: Rename and change types and number of parameters
     public static HomeFragment newInstance(String param1, String param2) {
         HomeFragment fragment = new HomeFragment();
@@ -79,10 +68,7 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -91,20 +77,14 @@ public class HomeFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Bundle bundle = getArguments();
-        rvWord = (RecyclerView) view.findViewById(R.id.hasilcari);
+        rvWord = view.findViewById(R.id.hasilcari);
         rvWord.setLayoutManager(new LinearLayoutManager(getContext()));
 
-//        if (bundle == null){
-//            Toast.makeText(view.getContext(), "DATA NULL", Toast.LENGTH_SHORT).show();
-//        }
-//        else {
-//            Toast.makeText(view.getContext(), "DATA NOT NULL", Toast.LENGTH_SHORT).show();
-//            String favorite = getArguments().getString("FAV");
-//            if (favorite.equals("TRUE")){
-//                Button buttonfav = (Button) view.findViewById(R.id.buttonFav);
-//                buttonfav.setBackgroundResource(R.drawable.bookmarkred);
-//            }
-//        }
+        Toolbar toolbar = view.findViewById(R.id.toolbarhome2);
+
+        setOverflowButtonColor(getActivity(), getResources().getColor(R.color.white));
+        ((AppCompatActivity)getActivity()).setSupportActionBar(toolbar);
+
 
 
         mDBHelper = new DatabaseHelper(getContext());
@@ -119,9 +99,6 @@ public class HomeFragment extends Fragment {
             }
         }
 
-        //mDBHelper.getReadableDatabase();
-        //copyDatabase(getContext());
-        //Toast.makeText(getApplicationContext(),"Copy Success",Toast.LENGTH_LONG).show();
         rvWord.setHasFixedSize(true);
         rvWord.addItemDecoration(new MyDividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL,10));
         rvWord.setItemAnimator(new DefaultItemAnimator());
@@ -130,7 +107,7 @@ public class HomeFragment extends Fragment {
         wordAdapter.setData(dictionaryModelList);
         rvWord.setAdapter(wordAdapter);
 
-        SearchView searchView = (SearchView) view.findViewById(R.id.carikata);
+        SearchView searchView = view.findViewById(R.id.carikata);
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -172,16 +149,6 @@ public class HomeFragment extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
@@ -214,5 +181,27 @@ public class HomeFragment extends Fragment {
             return false;
         }
 
+    }
+
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.item_navigasi, menu);  // Use filter.xml from step 1
+    }
+
+    public static void setOverflowButtonColor(final Activity activity, final int color) {
+        final String overflowDescription = activity.getString(R.string.abc_action_menu_overflow_description);
+        final ViewGroup decorView = (ViewGroup) activity.getWindow().getDecorView();
+        final ViewTreeObserver viewTreeObserver = decorView.getViewTreeObserver();
+        viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                final ArrayList<View> outViews = new ArrayList<View>();
+                decorView.findViewsWithText(outViews, overflowDescription, View.FIND_VIEWS_WITH_CONTENT_DESCRIPTION);
+                if (outViews.isEmpty()) {
+                    return;
+                }
+                AppCompatImageView overflow = (AppCompatImageView) outViews.get(0);
+                overflow.setColorFilter(color);
+            }
+        });
     }
 }

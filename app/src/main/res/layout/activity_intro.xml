@@ -22,9 +22,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:alpha=".5"
         android:layout_above="@id/layoutDots"
-        android:background="@android:color/white" />
+        android:alpha=".5"
+        android:background="@color/cardview_dark_background" />
 
     <Button
         android:id="@+id/btn_next"
@@ -34,7 +34,7 @@
         android:layout_alignParentRight="true"
         android:background="@null"
         android:text="@string/next"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/cardview_dark_background" />
 
     <Button
         android:id="@+id/btn_skip"
@@ -44,6 +44,6 @@
         android:layout_alignParentLeft="true"
         android:background="@null"
         android:text="@string/skip"
-        android:textColor="@android:color/white" />
+        android:textColor="@color/cardview_dark_background" />
 
 </RelativeLayout>

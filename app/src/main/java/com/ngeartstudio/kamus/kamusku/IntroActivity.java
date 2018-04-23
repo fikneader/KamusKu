@@ -45,17 +45,19 @@ public class IntroActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_intro);
 
-        viewPager = (ViewPager) findViewById(R.id.view_pager);
-        dotsLayout = (LinearLayout) findViewById(R.id.layoutDots);
-        btnSkip = (Button) findViewById(R.id.btn_skip);
-        btnNext = (Button) findViewById(R.id.btn_next);
+        viewPager = findViewById(R.id.view_pager);
+        dotsLayout = findViewById(R.id.layoutDots);
+        btnSkip = findViewById(R.id.btn_skip);
+        btnNext = findViewById(R.id.btn_next);
 
 
         // layouts of all welcome sliders
         // add few more layouts if you want
         layouts = new int[]{
                 R.layout.intro1,
-                R.layout.intro2};
+                R.layout.intro2,
+                R.layout.intro3
+                };
 
         // adding bottom dots
         addBottomDots(0);
@@ -115,7 +117,7 @@ public class IntroActivity extends AppCompatActivity {
 
     private void launchHomeScreen() {
         //prefManager.setFirstTimeLaunch(false);
-        startActivity(new Intent(IntroActivity.this, Main2Activity.class));
+        startActivity(new Intent(IntroActivity.this, MainActivity.class));
         finish();
     }
 
