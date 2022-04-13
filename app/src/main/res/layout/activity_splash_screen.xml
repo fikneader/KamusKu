@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
@@ -7,46 +7,28 @@
     android:orientation="vertical"
     android:background="@color/cardview_light_background"
     android:theme="@style/Theme.Design.NoActionBar"
-    tools:context="com.ngeartstudio.kamus.kamusku.SplashScreenActivity">
+    tools:context="com.ngeartstudio.kamus.kamusku.activity.SplashScreenActivity">
 
-    <LinearLayout
-        android:id="@+id/lin1"
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="200dp"
+        android:layout_height="270dp"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/splash"
+        tools:ignore="ContentDescription" />
+
+    <TextView
+        android:id="@+id/textView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="bottom|center"
-        android:layout_weight="0.5"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:scaleType="centerInside">
+        android:layout_marginBottom="10dp"
+        android:gravity="bottom"
+        android:text="© 2018. Universitas Negeri Yogyakarta"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="15sp"
+        tools:ignore="RtlCompat" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="200dp"
-            android:layout_height="270dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentStart="true"
-            android:layout_marginTop="50dp"
-            app:srcCompat="@drawable/splash" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/lin2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="2"
-        android:orientation="vertical">
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:gravity="bottom"
-            android:text="© 2018. Universitas Negeri Yogyakarta"
-            android:textAlignment="center"
-            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
-            android:textColor="@color/cardview_dark_background"
-            android:textSize="15sp" />
-    </LinearLayout>
-
-</LinearLayout>
+</FrameLayout>

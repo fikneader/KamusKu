@@ -3,16 +3,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ngeartstudio.kamus.kamusku.HomeFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context="com.ngeartstudio.kamus.kamusku.fragment.HomeFragment">
 
     <RelativeLayout
         android:id="@+id/inti"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
 
-        <android.support.v7.widget.Toolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarhome2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -21,7 +20,7 @@
             app:title="Kamus Komputer dan Jaringan"
             app:titleTextColor="@color/background"/>
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/card1"
@@ -29,7 +28,8 @@
             android:layout_marginLeft="5dp"
             android:layout_marginRight="5dp"
             android:layout_below="@+id/toolbarhome2">
-            <android.support.v7.widget.SearchView
+
+            <androidx.appcompat.widget.SearchView
                 android:id="@+id/carikata"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -38,16 +38,16 @@
                 android:textAlignment="gravity"
                 app:iconifiedByDefault="false"
                 app:queryHint="Cari Istilah" />
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/card2"
             android:layout_below="@id/card1"
             android:layout_marginTop="9dp">
 
-            <android.support.v7.widget.RecyclerView
+            <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/hasilcari"
                 android:layout_below="@+id/card1"
                 android:layout_width="match_parent"
@@ -57,9 +57,9 @@
                 android:divider="@android:color/black"
                 android:dividerHeight="8dp"
                 android:layoutAnimation="@anim/layout_animation_from_bottom">
-            </android.support.v7.widget.RecyclerView>
+            </androidx.recyclerview.widget.RecyclerView>
 
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 </FrameLayout>

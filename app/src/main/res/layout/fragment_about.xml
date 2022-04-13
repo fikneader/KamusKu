@@ -3,14 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.ngeartstudio.kamus.kamusku.AboutFragment">
-
-    <!-- TODO: Update blank fragment layout -->
+    tools:context="com.ngeartstudio.kamus.kamusku.fragment.AboutFragment">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.v7.widget.Toolbar
+        android:layout_height="match_parent"
+        tools:ignore="UselessParent">
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbarabout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -19,7 +18,7 @@
             app:title="Tentang Aplikasi"
             app:titleTextColor="@color/background" />
 
-        <android.support.v7.widget.CardView
+        <androidx.cardview.widget.CardView
             android:id="@+id/card2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -32,7 +31,7 @@
                 android:background="@drawable/bg">
 
 
-                <android.support.v4.widget.NestedScrollView
+                <androidx.core.widget.NestedScrollView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:fillViewport="true">
@@ -90,7 +89,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="2dp"
-                                android:text="Versi 1.0.0"
+                                android:text="Versi 1.1.0"
                                 android:textAlignment="center"
                                 android:textSize="13sp"
                                 android:textStyle="italic" />
@@ -113,17 +112,35 @@
                         </LinearLayout>
 
                         <LinearLayout
-                            android:id="@+id/About5"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/About4"
                             android:orientation="vertical">
 
+                            <LinearLayout
+                                android:id="@+id/About5"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_below="@+id/About4"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:text="Develop by : Taufik Anwar Sholikin - PTI 2014"
+                                    android:textAlignment="center"
+                                    android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                                    android:textSize="13sp"
+                                    tools:layout_editor_absoluteX="82dp"
+                                    tools:layout_editor_absoluteY="267dp" />
+                            </LinearLayout>
+
                             <TextView
                                 android:id="@+id/textView"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_marginTop="20dp"
+                                android:layout_marginTop="5dp"
                                 android:text="© 2018. Universitas Negeri Yogyakarta."
                                 android:textAlignment="center"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
@@ -152,11 +169,50 @@
                                 tools:layout_editor_absoluteX="82dp"
                                 tools:layout_editor_absoluteY="267dp" />
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/about7"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/iv_saweria"
+                                android:layout_width="150dp"
+                                android:layout_height="150dp"
+                                android:layout_marginTop="20dp"
+                                android:src="@drawable/barcode_saweria" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="https://saweria.co/fikneader"
+                                android:textAlignment="center"
+                                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"
+                                android:textSize="12sp"
+                                tools:layout_editor_absoluteX="82dp"
+                                tools:layout_editor_absoluteY="267dp" />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="10sp"
+                                android:layout_marginBottom="20dp"
+                                android:paddingStart="30dp"
+                                android:paddingEnd="30dp"
+                                android:text="Dukung untuk mengembangkan aplikasi lebih lanjut :)"
+                                android:textAlignment="center"
+                                android:textSize="18sp"
+                                android:textStyle="bold|italic" />
+
+                        </LinearLayout>
+
                     </LinearLayout>
-                </android.support.v4.widget.NestedScrollView>
+                </androidx.core.widget.NestedScrollView>
 
             </RelativeLayout>
-        </android.support.v7.widget.CardView>
+        </androidx.cardview.widget.CardView>
 
     </RelativeLayout>
 </FrameLayout>

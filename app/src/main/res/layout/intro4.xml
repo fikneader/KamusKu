@@ -1,9 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
-    android:background="#FFFFFF">
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -11,11 +10,12 @@
         android:orientation="vertical"
         android:background="#FF2B3156"
         android:layout_gravity="center"
-        android:gravity="center">
+        android:gravity="center"
+        >
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/menus"
+            android:layout_height="200dp"
+            android:src="@drawable/intro1"
             android:layout_gravity="center"/>
     </LinearLayout>
 
@@ -24,37 +24,60 @@
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical"
-        android:background="#FFFFFF"
-        android:layout_marginBottom="50dp">
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="Menu Aplikasi Kamus Istilah KOMJAR"
-                    android:textAlignment="center"
-                    android:textColor="@color/cardview_dark_background"
-                    android:textSize="17sp"
-                    android:textStyle="bold" />
+        android:background="#FFFFFF">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:text="@string/menu"
-                    android:textAlignment="center"
-                    android:textColor="@color/cardview_dark_background"
-                    android:textSize="15sp"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
-                    />
-            </LinearLayout>
-        </ScrollView>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="Sumber Referensi/Materi dari Kamus Istilah Komputer dan Jaringan"
+            android:textAlignment="center"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="1. Kamus++ Jaringan Komputer oleh Budi Sutedjo Dharma O, S.Kom., MM (2009)"
+            android:textAlignment="textStart"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="2. Kamus Istilah Komputer dan Infromatika oleh Andino Maseleno (2003)"
+            android:textAlignment="inherit"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="3. Kamus Istilah Teknologi Informasi oleh Fathul Wahid (2002)"
+            android:textAlignment="inherit"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="15sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:text="4. Gambar diambil dari image.google.com"
+            android:textAlignment="inherit"
+            android:textColor="@color/cardview_dark_background"
+            android:textSize="15sp" />
     </LinearLayout>
 </LinearLayout>

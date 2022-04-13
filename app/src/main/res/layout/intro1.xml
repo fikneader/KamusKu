@@ -12,11 +12,12 @@
         android:layout_gravity="center"
         android:gravity="center"
         >
+
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="200dp"
-            android:src="@drawable/intro1"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@drawable/intro0" />
     </LinearLayout>
 
     <LinearLayout
@@ -30,7 +31,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="15dp"
-            android:text="Selamat Datang di Kamus Istilah KOMJAR"
+            android:text="Selamat Datang di Aplikasi Kamus Istilah Komputer dan Jaringan"
             android:textAlignment="center"
             android:textColor="@color/cardview_dark_background"
             android:textSize="17sp"

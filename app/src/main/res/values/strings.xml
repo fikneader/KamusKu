@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Kamus Komputer dan Jaringan</string>
+    <string name="app_name">Kamus Istilah Komputer dan Jaringan</string>
 
     <string name="next">LANJUT</string>
     <string name="skip">LEWATI</string>
@@ -22,11 +22,14 @@
     <string name="title_main">Kamus Komputer dan Jaringan</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
-    <string name="selamat_datang">Aplikasi yang berisi kumpulan kata istilah komputer dan jaringan beserta gambar yang diambil dari sumber referensi terpercaya</string>
+    <string name="selamat_datang">Aplikasi ini berisi kumpulan kata istilah komputer dan jaringan beserta gambar yang diambil dari sumber referensi terpercaya</string>
     <string name="favorit">Pada aplikasi ini pengguna dapat menambah kata favorit untuk memudahkan dalam pencarian kata yang sering digunakan</string>
     <string name="berbagi">Pada aplikasi ini pengguna dapat berbagi pengertian kata istilah komputer dan jaringan kepada orang lain melalui media sosial</string>
     <string name="menu">
         1. Menu Petunjuk
         2. Pencarian Kata / Istilah
     </string>
+
+    <string name="id_adds_banner_definition">ca-app-pub-1193471811000190/5429667297</string>
+    <string name="id_adds_interstisial_definition">ca-app-pub-1193471811000190/5046523913</string>
 </resources>
